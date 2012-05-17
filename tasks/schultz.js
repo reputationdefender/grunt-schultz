@@ -16,8 +16,7 @@ module.exports = function(grunt) {
   // ==========================================================================
   // GLOBAL VARS
   // ==========================================================================
-  var util = require('util'),
-      file = grunt.file,
+  var file = grunt.file,
       log = grunt.log,
       config = grunt.config;
 
@@ -26,25 +25,16 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   grunt.registerMultiTask('schultz', 'Take css files, convert them to JSON, and replace the markup in a file with inline styles.', function() {
-    console.log('schultz task');
-    
+    // make sure we get some data
     if (!this.data) { return false; }
     
-    console.log('into schultz task');
-    
-    
     if (this.file.dest[this.file.dest.length - 1] === '/') {
-      grunt.fatal('never use path as filename');
-      return false;
-    }
+       grunt.fatal('never use path as filename');
+       return false;
+     }
     
-    // take the object, seperate it out from this.data, send it on as 'files'
-    
+    // send unprocessed file.src object to schultz, it will extract css and tpl as it needs
     var files = this.file.src;
-    
-    // console.log(util.inspect(files, true));
-    // console.log(grunt.helper('schultz',files));
-    // grunt.file.write(this.file.dest);
     grunt.file.write(this.file.dest, grunt.helper('schultz', files));
 
     // Fail task if errors were logged.
@@ -53,7 +43,6 @@ module.exports = function(grunt) {
     // 
     // // Otherwise, print a success message.
     grunt.log.writeln('File "' + this.file.dest + '" created.');
-    
   });
 
   // ==========================================================================
@@ -94,10 +83,9 @@ module.exports = function(grunt) {
   });
   
   grunt.registerHelper('schultz', function(files) {
-    //var $ = require('jQuery'),
+    var $ = require('jQuery'),
         contents = '',
         css = {};
-      console.log(util.inspect(files,true));
     files.css.map(function(filepath) {
       var raw = grunt.file.read(filepath);
         // send css to Joss to be converted into an object
@@ -106,7 +94,7 @@ module.exports = function(grunt) {
     files.tpl.map(function(filepath) {
       var raw = grunt.file.read(filepath);
       // save the file content to a jquery instance so that we can simply use jquery selectors
-      /*$(raw).appendTo('body');
+      $(raw).appendTo('body');
       $.each(css, function(key, value) {
         for (var i in value) {
           // save the current inline style if it exists
@@ -114,8 +102,8 @@ module.exports = function(grunt) {
           // append the new style with the old style
           $(i).attr('style',attr+value[i]);
         }
-      });*/
-      //contents += $('body').html();
+      });
+      contents += $('body').html();
     });
     
     return contents;
