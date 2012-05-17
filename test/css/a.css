@@ -1,0 +1,19 @@
+.none {
+  display: none;
+}
+p {
+  font-size: 12px;
+}
+.article {
+  float: left;
+}
+.article p {
+  font-size: 14px;
+}
+.article h2 + p {
+  font-weight: bold;
+}
+table > div:first-child {
+  background-color: #292929;
+  background: url('/img/patterns/headerbg.png?1336771384');
+}
