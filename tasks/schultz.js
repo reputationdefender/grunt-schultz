@@ -25,7 +25,7 @@ module.exports = function(grunt) {
   // TASKS
   // ==========================================================================
 
-  grunt.registerMultiTask('schultz', 'Grab css files, convert them to JSON, and replace the classes in a file with inline styles.', function() {
+  grunt.registerMultiTask('schultz', 'Take css files, convert them to JSON, and replace the markup in a file with inline styles.', function() {
     if (!this.data) { return false; }
     
     if (this.file.dest[this.file.dest.length - 1] === '/') {
