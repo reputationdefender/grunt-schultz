@@ -88,7 +88,7 @@ module.exports = function(grunt) {
   });
   
   grunt.registerHelper('schultz', function(files) {
-    var $ = require('jQuery'),
+    var $ = require('jQuery') || require('jquery'),
         contents = '',
         css = {};
     files.css.map(function(filepath) {
