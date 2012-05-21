@@ -37,7 +37,7 @@ exports['schultz'] = {
       ]
     },
     contents = grunt.helper('schultz',f),
-    expected = '<table>\n  <div style="background-color: #292929; background: url(\'//{{cdn}}/img/patterns/headerbg.png?1336771384\');">This is a test</div>\n  <div class="none" style="display: none;">but I should not be able to read this</div>\n  <div class="article" style="float: left;">\n    <h2>This is a header</h2>\n    <p style="font-size: 14px; font-weight: bold;">This is the first paragraph.</p>\n    <p style="font-size: 14px;">This is the second paragraph.</p>\n  </div>\n  <p style="font-size: 12px;">Isn’t it funny how paragraphs just happen?</p>\n</table>';
+    expected = '<table>\n  <div style="background-color: #292929; background: url(\'//{{cdn}}/img/patterns/headerbg.png?1336771384\');">This is a test</div>\n  <div class="none" style="display: none;">but I should not be able to read this</div>\n  <div class="article" style="float: left;">\n    <h2>This is a header</h2>\n    <p style="font-size: 14px; font-weight: bold;">This is the first paragraph.</p>\n    <p style="font-size: 14px;">This is the second paragraph.</p>\n  </div>\n  <p style="font-size: 12px;">Isn’t it funny how paragraphs just happen?</p>\n  {{> partial}}\n</table>';
     
     test.equal(contents, expected, 'Should return markup with inline styles.');
     test.done();

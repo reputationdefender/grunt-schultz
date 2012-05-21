@@ -112,7 +112,7 @@ module.exports = function(grunt) {
       });
       contents = $('body').html();
       // unescape the mustache partial calls for profit and success
-      contents = contents.replace(/\&gt\;/g,"\>");
+      contents = contents.replace(/\&gt\;/g,">");
       // clear out the html from the body so when we save the file we aren't getting previous contents
       $('body').html('');
     });
