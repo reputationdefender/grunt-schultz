@@ -69,7 +69,7 @@ module.exports = function(grunt) {
           var str = event.value.text;
           var s = str.slice(0,5);
           var e = str.slice(6,str.length);
-          event.value.text = s+'//{{cdn}}/'+e;
+          event.value.text = s+'http://{{cdn}}/'+e;
         }
         // check to see if the rule already has a property
         var currProp = css[currentRule] || '';
