@@ -6,6 +6,9 @@
  * Authored by: Jeff Harnois jeff.harnois@reputation.com
  * Licensed under the MIT license.
  * "I know nuzzing!"
+ * Docs: 
+ *   parser-lib git://github.com/nzakas/parser-lib.git
+ *   jQuery https://github.com/coolaj86/node-jquery
  */
 
 module.exports = function(grunt) {
@@ -28,6 +31,7 @@ module.exports = function(grunt) {
     // make sure we get some data
     if (!this.data) { return false; }
     
+    // make sure the destination we get is a file, not a path
     if (this.file.dest[this.file.dest.length - 1] === '/') {
        grunt.fatal('never use path as filename');
        return false;
@@ -57,6 +61,7 @@ module.exports = function(grunt) {
     var parser = new parserlib.css.Parser();
     
     parser.addListener("startrule", function(event){
+      // save the current rule we are on for use in the property listen
       for (var i=0,len=event.selectors.length; i < len; i++){
          var selector = event.selectors[i];
          currentRule = selector.text;
@@ -83,7 +88,7 @@ module.exports = function(grunt) {
   });
   
   grunt.registerHelper('schultz', function(files) {
-    var $ = require('jQuery'),
+    var $ = require('jQuery') || require('jquery'),
         contents = '',
         css = {};
     files.css.map(function(filepath) {
@@ -93,6 +98,8 @@ module.exports = function(grunt) {
     });
     files.tpl.map(function(filepath) {
       var raw = grunt.file.read(filepath);
+      // escape partial mustache calls because jQuery.html() strips them out
+      raw = raw.replace(/\{\{>/g,"{{&gt;");
       // save the file content to a jquery instance so that we can simply use jquery selectors
       $(raw).appendTo('body');
       $.each(css, function(key, value) {
@@ -103,9 +110,12 @@ module.exports = function(grunt) {
           $(i).attr('style',attr+value[i]);
         }
       });
-      contents += $('body').html();
+      contents = $('body').html();
+      // unescape the mustache partial calls for profit and success
+      contents = contents.replace(/\&gt\;/g,">");
+      // clear out the html from the body so when we save the file we aren't getting previous contents
+      $('body').html('');
     });
-    
     return contents;
   });
 
