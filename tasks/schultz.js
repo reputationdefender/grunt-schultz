@@ -71,11 +71,11 @@ module.exports = function(grunt) {
     
     parser.addListener("property", function(event){
         // check to see if we have a relative url('') anywhere [ !== url('//') ] and add a mustache var to resolve the path
-        if (event.value.text.indexOf('url(\'/') !== -1 && event.value.text.indexOf('url(\'//') === -1) {
-          var str = event.value.text;
-          var s = str.slice(0,5);
-          var e = str.slice(6,str.length);
-          event.value.text = s+'http://{{cdn}}/'+e;
+        if (event.value.text.indexOf("url('/") !== -1 && event.value.text.indexOf("url('//") === -1) {
+          var str = event.value.text,
+              n;
+          n = str.replace(/url\('\//g,"url('http://{{cdn}}/");
+          event.value.text = n;
         }
         // check to see if the rule already has a property
         var currProp = css[currentRule] || '';
