@@ -47,6 +47,7 @@ module.exports = function(grunt) {
     // 
     // // Otherwise, print a success message.
     grunt.log.writeln('File "' + this.file.dest + '" created.');
+    return true;
   });
 
   // ==========================================================================
@@ -104,10 +105,12 @@ module.exports = function(grunt) {
       $(raw).appendTo('body');
       $.each(css, function(key, value) {
         for (var i in value) {
-          // save the current inline style if it exists
-          var attr = $(i).attr('style') || '';
-          // append the new style with the old style
-          $(i).attr('style',attr+value[i]);
+          $.each($(i), function(index) {
+            // save the current inline style if it exists
+            var attr = $(this).attr('style') || '';
+            // append the new style with the old style
+            $(this).attr('style',attr+value[i]);
+          });
         }
       });
       contents = $('body').html();
