@@ -1,7 +1,7 @@
 {
   "name": "grunt-schultz",
   "description": "Take css files, convert them to JSON, and replace the markup in a file with inline styles.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/reputation/grunt-schultz",
   "author": {
     "name": "Jeff Harnois",
